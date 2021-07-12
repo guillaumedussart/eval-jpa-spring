@@ -28,11 +28,8 @@ public class Client implements Serializable {
     @Column(name = "passwd",length = 200)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="panier",
-    joinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id")
-    )
+    @ManyToMany(mappedBy = "clients",fetch = FetchType.EAGER)
+
     private Set<Item> items;
     public Client() {
     }

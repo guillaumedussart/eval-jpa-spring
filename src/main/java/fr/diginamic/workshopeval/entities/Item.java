@@ -25,7 +25,13 @@ public class Item implements Serializable {
     @Column(name = "prix")
     private Double price;
 
-    @ManyToMany(mappedBy = "items",fetch = FetchType.EAGER)
+
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="panier",
+            joinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id")
+    )
     private Set<Client> clients;
 
     public Item() {

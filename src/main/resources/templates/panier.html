@@ -9,7 +9,7 @@
     <link rel="stylesheet" th:href="@{/css/dashboard.css}"/>
     <link rel="stylesheet" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}"/>
     <link rel="stylesheet" th:href="@{/css/style.css}"/>
-    <title>Work shop</title>
+    <title>Panier</title>
 </head>
 <body>
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
@@ -91,7 +91,7 @@
                         <td th:text="${ item.code }"/>
                         <td th:text="${item.description}"/>
                         <td th:text="${item.price}"/>
-                        <td><a th:href="'javascript:addToBasket(' + ${item.id} +');'"><img height="16" width="16" th:src="@{/img/add.png}" /></a></td>
+                        <td><a th:href="'javascript:addToBasket(' + ${item.id} +');'"><img height="16" width="16" th:src="@{/img/delete.png}" /></a></td>
 
                     </tr>
                     </tbody>

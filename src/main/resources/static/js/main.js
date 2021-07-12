@@ -1,5 +1,4 @@
 function addToBasket(id) {
-	window.location='/item/add/'+id;
 $.ajax({
 	url:'/item/add/'+id,
 	type:"get",
