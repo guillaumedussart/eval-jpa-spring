@@ -1,5 +1,7 @@
 package fr.diginamic.workshopeval.services;
 
+import fr.diginamic.workshopeval.entities.Client;
+import fr.diginamic.workshopeval.exception.ClientNotFindException;
 import fr.diginamic.workshopeval.repositories.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,5 +13,9 @@ public class ClientService {
     @Autowired
     public ClientService(ClientRepository clientRepository) {
         this.clientRepository = clientRepository;
+    }
+
+    public Client getOneById(Long id){
+        return clientRepository.findById(id).orElseThrow(()->new ClientNotFindException("Le client n'a pas ete trouve"));
     }
 }
