@@ -19,7 +19,7 @@ public class Item implements Serializable {
     @Column(name = "code",length = 50)
     private String code;
 
-    @Column(name = "desc",length = 150)
+    @Column(name = "desc",length = 250)
     private String description;
 
     @Column(name = "prix")
