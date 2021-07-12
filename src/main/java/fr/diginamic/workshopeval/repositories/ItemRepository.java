@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemRepository extends CrudRepository<Item, Long> {
     Iterable<Item> findAllByClients(Client client);
+    Iterable<Item> deleteAllByClients(Client client);
 }

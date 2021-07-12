@@ -2,6 +2,7 @@ package fr.diginamic.workshopeval.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -30,7 +31,7 @@ public class Client implements Serializable {
 
     @ManyToMany(mappedBy = "clients",fetch = FetchType.EAGER)
 
-    private Set<Item> items;
+    private List<Item> items;
     public Client() {
     }
 
@@ -41,7 +42,7 @@ public class Client implements Serializable {
         this.password = password;
     }
 
-    public Client(String firstName, String lastName, String login, String password, Set<Item> items) {
+    public Client(String firstName, String lastName, String login, String password, List<Item> items) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.login = login;
@@ -168,7 +169,7 @@ public class Client implements Serializable {
      )
 
      */
-    public Set<Item> getItems() {
+    public List<Item> getItems() {
         return this.items;
     }
 
@@ -185,7 +186,7 @@ public class Client implements Serializable {
      )
 
      */
-    public void setItems(Set<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
     }
 }

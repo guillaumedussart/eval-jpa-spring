@@ -2,6 +2,7 @@ package fr.diginamic.workshopeval.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,7 +33,7 @@ public class Item implements Serializable {
             joinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id")
     )
-    private Set<Client> clients;
+    private List<Client> clients;
 
     public Item() {
     }
@@ -43,7 +44,7 @@ public class Item implements Serializable {
         this.price = price;
     }
 
-    public Item(String code, String description, Double price, Set<Client> clients) {
+    public Item(String code, String description, Double price, List<Client> clients) {
         this.code = code;
         this.description = description;
         this.price = price;
@@ -142,7 +143,7 @@ public class Item implements Serializable {
      * @return clients @ManyToMany(mappedBy = "items",fetch = FetchType.EAGER)
 
      */
-    public Set<Client> getClients() {
+    public List<Client> getClients() {
         return this.clients;
     }
 
@@ -152,7 +153,7 @@ public class Item implements Serializable {
      * @param clients @ManyToMany(mappedBy = "items",fetch = FetchType.EAGER)
 
      */
-    public void setClients(Set<Client> clients) {
+    public void setClients(List<Client> clients) {
         this.clients = clients;
     }
 }

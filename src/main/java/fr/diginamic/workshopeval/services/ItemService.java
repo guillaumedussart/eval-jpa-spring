@@ -62,4 +62,8 @@ public class ItemService {
     public Item update(Item item){
         return itemRepository.save(item);
     }
+
+    public Iterable<Item> deleteItems(Client client){
+        return itemRepository.deleteAllByClients(client);
+    }
 }
