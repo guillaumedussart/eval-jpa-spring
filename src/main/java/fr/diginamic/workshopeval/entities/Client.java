@@ -2,10 +2,14 @@ package fr.diginamic.workshopeval.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
+/**
+ *  client
+ *
+ */
 @Entity
 @Table(name = "client")
-
 public class Client implements Serializable {
 
     @Id
@@ -24,6 +28,12 @@ public class Client implements Serializable {
     @Column(name = "passwd",length = 200)
     private String password;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="panier",
+    joinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id")
+    )
+    private Set<Item> items;
     public Client() {
     }
 
@@ -32,6 +42,14 @@ public class Client implements Serializable {
         this.lastName = lastName;
         this.login = login;
         this.password = password;
+    }
+
+    public Client(String firstName, String lastName, String login, String password, Set<Item> items) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.login = login;
+        this.password = password;
+        this.items = items;
     }
 
     /**
@@ -138,5 +156,39 @@ public class Client implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    /**
+     * get field @ManyToMany(fetch = FetchType.EAGER)
+     @JoinTable(name="panier", joinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id")
+     )
+
+      *
+      * @return items @ManyToMany(fetch = FetchType.EAGER)
+     @JoinTable(name="panier", joinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id")
+     )
+
+     */
+    public Set<Item> getItems() {
+        return this.items;
+    }
+
+    /**
+     * set field @ManyToMany(fetch = FetchType.EAGER)
+     @JoinTable(name="panier", joinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id")
+     )
+
+      *
+      * @param items @ManyToMany(fetch = FetchType.EAGER)
+     @JoinTable(name="panier", joinColumns = @JoinColumn(name = "id_client",referencedColumnName = "id"),
+     inverseJoinColumns = @JoinColumn(name = "id_item",referencedColumnName = "id")
+     )
+
+     */
+    public void setItems(Set<Item> items) {
+        this.items = items;
     }
 }
