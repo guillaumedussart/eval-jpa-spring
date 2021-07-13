@@ -12,7 +12,7 @@ function addToBasket(id) {
 	})
 }
 
-function deleteBasket(id) {
+function deleteBasket() {
 	$.ajax({
 		url:'/panier/delete',
 		type:"post",
@@ -20,14 +20,14 @@ function deleteBasket(id) {
 			var modalToggle = document.getElementById('staticBackdrop') // relatedTarget
 			modalToggle.hide();
 			swal({
-				title: "Article ajouté",
+				title: "Article supprime",
 				text: "You clicked the button!",
 				icon: "success",
 			});
 		},
 		error(data){
 			swal({
-				title: "Article non ajouté",
+				title: "Article non non supprime",
 				text: "You clicked the button!",
 				icon: "danger",
 			});

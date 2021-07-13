@@ -29,8 +29,16 @@ public interface ItemRepository extends CrudRepository<Item, Long> {
      * @see Item
      * select new fr.diginamic.workshopeval.entities.TotalItem(count(*) as total,sum(i.prix) as total_price ,i.id ,i.prix as unit_price,i.description,i.code) from item i left join panier p on p.id_item=i.id left join client c on c.id=p.id_client where c.id=:id group by i.code
      */
-    Iterable<Item> deleteAllByClients(Client client);
+    Iterable<Item> deleteByClients(Client client);
 
+    /**
+     * find all by clients group by items
+     *
+     * @param id id
+     * @return {@link Iterable}
+     * @see Iterable
+     * @see TotalItem
+     */
     @Query("select new fr.diginamic.workshopeval.entities.TotalItem(count(i),sum(i.price),i.id ,i.price,i.description,i.code) from Item i join  i.clients c where c.id=:id group by i.code")
     Iterable<TotalItem> findAllByClientsGroupByItems(@Param("id") Long id);
 }

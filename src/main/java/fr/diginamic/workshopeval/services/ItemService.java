@@ -7,10 +7,12 @@ import fr.diginamic.workshopeval.exception.ItemNotFindException;
 import fr.diginamic.workshopeval.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class ItemService {
     private final ItemRepository itemRepository;
 
@@ -56,7 +58,7 @@ public class ItemService {
     /**
      * find all by clients group by items
      *
-     * @param client client
+     *
      * @return {@link List}
      * @see List
      * @see Item
@@ -89,10 +91,10 @@ public class ItemService {
 
     public void addItem(Client client, Item item) {
         item.getClients().add(client);
-        item = itemRepository.save(item);
+        itemRepository.save(item);
     }
 
     public Iterable<Item> deleteItems(Client client) {
-        return itemRepository.deleteAllByClients(client);
+        return itemRepository.deleteByClients(client);
     }
 }

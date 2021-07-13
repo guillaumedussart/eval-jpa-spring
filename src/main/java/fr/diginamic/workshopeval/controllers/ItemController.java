@@ -41,7 +41,6 @@ public class ItemController {
     public String showItems(Model model){
         Client client = clientService.getOneById(1L);
         Iterable<TotalItem> items = itemService.findAllByClientsGroupByItems(client.getId());
-        System.out.println(items);
         double total =0;
         for(TotalItem item:items){
 
@@ -65,7 +64,6 @@ public class ItemController {
     public String addItemToBasket(@PathVariable Long id, Model model) {
         Client client = clientService.getOneById(1L);
         Item item = itemService.getOneById(id);
-        System.out.println(item.getCode());
         List<Client> clients = new ArrayList<>();
         clients.add(client);
         /*Item item1 = new Item(item.getCode(),item.getDescription(), item.getPrice(),clients);*/
@@ -85,11 +83,11 @@ public class ItemController {
      * @see String
      */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
-    public String deleteAllItem(Model model){
+    public String deleteAllItem( Model model){
         Client client = clientService.getOneById(1L);
         itemService.deleteItems(client);
         Iterable<Item> items = itemService.getAllByClient(client);
         model.addAttribute(items);
-        return "panier";
+        return "redirect:/panier";
     }
 }

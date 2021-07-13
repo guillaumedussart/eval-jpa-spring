@@ -31,7 +31,7 @@ public class Client implements Serializable {
     @Column(name = "passwd",length = 200)
     private String password;
 
-    @ManyToMany(mappedBy = "clients",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "clients",fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 
     private Collection<Item> items;
 

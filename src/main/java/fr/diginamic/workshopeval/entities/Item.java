@@ -1,5 +1,10 @@
 package fr.diginamic.workshopeval.entities;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,6 +17,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "item")
+
 public class Item implements Serializable {
 
     @Id
@@ -26,9 +32,8 @@ public class Item implements Serializable {
 
     @Column(name = "prix")
     private Double price;
-    private Double totalPrice;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     @JoinTable(name = "panier",
             joinColumns = @JoinColumn(name = "id_item", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "id_client", referencedColumnName = "id")
@@ -55,13 +60,7 @@ public class Item implements Serializable {
         this.clients = clients;
     }
 
-    public Item(String code, String description, Double price, Double totalPrice, Collection<Client> clients) {
-        this.code = code;
-        this.description = description;
-        this.price = price;
-        this.totalPrice = totalPrice;
-        this.clients = clients;
-    }
+
 
     /**
      * get field @Id
@@ -158,21 +157,5 @@ public class Item implements Serializable {
     }
 
 
-    /**
-     * get field
-     *
-     * @return totalPrice
-     */
-    public Double getTotalPrice() {
-        return this.totalPrice;
-    }
 
-    /**
-     * set field
-     *
-     * @param totalPrice
-     */
-    public void setTotalPrice(Double totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 }
