@@ -15,6 +15,13 @@ public class ClientService {
         this.clientRepository = clientRepository;
     }
 
+    /**
+     * get one by id
+     *
+     * @param id id
+     * @return {@link Client}
+     * @see Client
+     */
     public Client getOneById(Long id){
         return clientRepository.findById(id).orElseThrow(()->new ClientNotFindException("Le client n'a pas ete trouve"));
     }

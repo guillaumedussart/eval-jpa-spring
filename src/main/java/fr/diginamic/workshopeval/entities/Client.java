@@ -2,6 +2,8 @@ package fr.diginamic.workshopeval.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +33,11 @@ public class Client implements Serializable {
 
     @ManyToMany(mappedBy = "clients",fetch = FetchType.EAGER)
 
-    private List<Item> items;
+    private Collection<Item> items;
+
+    {
+        this.items = new ArrayList<>();
+    }
     public Client() {
     }
 
@@ -169,7 +175,7 @@ public class Client implements Serializable {
      )
 
      */
-    public List<Item> getItems() {
+    public Collection<Item> getItems() {
         return this.items;
     }
 
@@ -186,7 +192,7 @@ public class Client implements Serializable {
      )
 
      */
-    public void setItems(List<Item> items) {
+    public void setItems(Collection<Item> items) {
         this.items = items;
     }
 }

@@ -2,21 +2,13 @@ function addToBasket(id) {
 	$.ajax({
 		url: '/panier/add/' + id,
 		type: "get",
-		success(data) {
+		success: function (data) {
 			swal({
 				title: "Article ajouté",
 				text: "You clicked the button!",
 				icon: "success",
 			});
-		},
-		error(data) {
-			swal({
-				title: "Article non ajouté",
-				text: "You clicked the button!",
-				icon: "danger",
-			});
 		}
-
 	})
 }
 

@@ -81,16 +81,20 @@
                     <tr>
                         <th><span th:text="Code"></span></th>
                         <th><span th:text="Description"></span></th>
-                        <th><span th:text="Prix"></span></th>
+                        <th><span th:text="Prixunitaire"></span></th>
+                        <th><span th:text="Qte"></span></th>
+                        <th><span th:text="Prixtotal">prix de</span></th>
                         <th></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="item : ${items}">
-                        <td th:text="${ item.code }"/>
+                        <td th:text="${ item.getCode() }" />
                         <td th:text="${item.description}"/>
-                        <td th:text="${item.price}"/>
-                        <td><a th:href="'javascript:delete(' + ${item.id} +');'"><img height="16" width="16"
+                        <td th:text="${item.getUnitPrice()}"/>
+                        <td th:text="${item.getTotal()}"/>
+                        <td th:text="${item.getTotalPrice()}"/>
+                        <td><a th:href="'javascript:delete(' + ${item.getId()} +');'"><img height="16" width="16"
                                                                                       th:src="@{/img/delete.png}"/></a>
                         </td>
 

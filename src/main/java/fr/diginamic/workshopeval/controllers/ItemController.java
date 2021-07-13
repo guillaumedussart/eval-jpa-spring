@@ -2,6 +2,7 @@ package fr.diginamic.workshopeval.controllers;
 
 import fr.diginamic.workshopeval.entities.Client;
 import fr.diginamic.workshopeval.entities.Item;
+import fr.diginamic.workshopeval.entities.TotalItem;
 import fr.diginamic.workshopeval.services.ClientService;
 import fr.diginamic.workshopeval.services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,22 @@ public class ItemController {
     @Autowired
     private ClientService clientService;
 
+    /**
+     * show items
+     *
+     * @param model model
+     * @return {@link String}
+     * @see String
+     */
     @RequestMapping(value = "",method = RequestMethod.GET)
     public String showItems(Model model){
         Client client = clientService.getOneById(1L);
-        Iterable<Item> items = itemService.getAllByClient(client);
+        Iterable<TotalItem> items = itemService.findAllByClientsGroupByItems(client.getId());
+        System.out.println(items);
         double total =0;
-        for(Item item:items){
-            total += item.getPrice();
+        for(TotalItem item:items){
+
+            total += item.getTotalPrice();
         }
         model.addAttribute("items",items);
         model.addAttribute("price",total);
@@ -43,15 +53,23 @@ public class ItemController {
         return "panier";
     }
 
+    /**
+     * add item to basket
+     *
+     * @param id id
+     * @param model model
+     * @return {@link String}
+     * @see String
+     */
     @RequestMapping(value = "/add/{id}", method = RequestMethod.GET)
     public String addItemToBasket(@PathVariable Long id, Model model) {
         Client client = clientService.getOneById(1L);
         Item item = itemService.getOneById(id);
-
+        System.out.println(item.getCode());
         List<Client> clients = new ArrayList<>();
         clients.add(client);
-        item.setClients(clients);
-        itemService.update(item);
+        /*Item item1 = new Item(item.getCode(),item.getDescription(), item.getPrice(),clients);*/
+        itemService.addItem(client,item);
 
 
         Iterable<Item> items = itemService.getAllItem();
@@ -59,6 +77,13 @@ public class ItemController {
         model.addAttribute("items",items);
         return "home";
     }
+    /**
+     * delete all item
+     *
+     * @param model model
+     * @return {@link String}
+     * @see String
+     */
     @RequestMapping(value = "/delete",method = RequestMethod.POST)
     public String deleteAllItem(Model model){
         Client client = clientService.getOneById(1L);

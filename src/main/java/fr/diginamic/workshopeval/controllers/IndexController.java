@@ -22,6 +22,13 @@ public class IndexController {
     @Autowired
     private ItemService itemService;
 
+    /**
+     * index
+     *
+     * @param model model
+     * @return {@link String}
+     * @see String
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
         Client client = clientService.getOneById(1L);

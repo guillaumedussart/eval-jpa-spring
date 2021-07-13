@@ -2,11 +2,13 @@ package fr.diginamic.workshopeval.services;
 
 import fr.diginamic.workshopeval.entities.Client;
 import fr.diginamic.workshopeval.entities.Item;
-import fr.diginamic.workshopeval.exception.ClientNotFindException;
+import fr.diginamic.workshopeval.entities.TotalItem;
 import fr.diginamic.workshopeval.exception.ItemNotFindException;
 import fr.diginamic.workshopeval.repositories.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ItemService {
@@ -28,9 +30,18 @@ public class ItemService {
         return itemRepository.findAll();
     }
 
-    public Iterable<Item> getAllByClient(Client client){
+    /**
+     * get all by client
+     *
+     * @param client client
+     * @return {@link Iterable}
+     * @see Iterable
+     * @see Item
+     */
+    public Iterable<Item> getAllByClient(Client client) {
         return itemRepository.findAllByClients(client);
     }
+
     /**
      * get one by id
      *
@@ -38,8 +49,20 @@ public class ItemService {
      * @return {@link Item}
      * @see Item
      */
-    public Item getOneById(Long id){
-        return itemRepository.findById(id).orElseThrow(()->new ItemNotFindException("Pas d'article trouve"));
+    public Item getOneById(Long id) {
+        return itemRepository.findById(id).orElseThrow(() -> new ItemNotFindException("Pas d'article trouve"));
+    }
+
+    /**
+     * find all by clients group by items
+     *
+     * @param client client
+     * @return {@link List}
+     * @see List
+     * @see Item
+     */
+    public Iterable<TotalItem> findAllByClientsGroupByItems(Long id) {
+        return itemRepository.findAllByClientsGroupByItems(id);
     }
 
     /**
@@ -49,9 +72,10 @@ public class ItemService {
      * @return {@link Item}
      * @see Item
      */
-    public Item create(Item item){
+    public Item create(Item item) {
         return itemRepository.save(item);
     }
+
     /**
      * update
      *
@@ -59,11 +83,16 @@ public class ItemService {
      * @return {@link Item}
      * @see Item
      */
-    public Item update(Item item){
+    public Item update(Item item) {
         return itemRepository.save(item);
     }
 
-    public Iterable<Item> deleteItems(Client client){
+    public void addItem(Client client, Item item) {
+        item.getClients().add(client);
+        item = itemRepository.save(item);
+    }
+
+    public Iterable<Item> deleteItems(Client client) {
         return itemRepository.deleteAllByClients(client);
     }
 }
